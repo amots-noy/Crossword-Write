@@ -1,0 +1,133 @@
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+table, td {
+  border: 1px solid black;
+}
+
+.layer {
+  position: absolute;
+}
+
+#cw-frame{
+  background-color: rgba(100%, 0%, 0%, 50%);
+} 
+
+#bottom-row{
+  height: 53px;
+  border: 0px;
+}
+
+.cp-btn input{
+  display: none;
+}
+
+.cp-btn input:checked ~ .btn{
+  background-color:chartreuse;
+}
+
+.cp-btn input ~ .btn{
+  background-color: chocolate;
+  height: 20px;
+}
+
+
+
+#table-div{
+  height: 300px; 
+  width: 250px; 
+}
+
+#cw-frame{
+  cursor:grab;
+}
+
+#resize-handle{
+  width: 20px;
+  height: 20px;
+  min-height: 20px;
+  background-color: yellow;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  cursor:nwse-resize;
+}
+
+
+div.grid-outer{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display:table;
+  table-layout: fixed;
+  border: 0px solid black;
+}
+
+div.grid-row {
+  display:table-row;
+}
+
+div.grid-cell {
+  display:table-cell; 
+  border: 1px solid black;
+}
+
+#ctrl-panel{
+  height: 50px;
+  border: 0px;
+}
+
+.centering-div{
+  display: flex;
+  justify-content: center;
+}
+
+.cp-btn{
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-color: cadetblue;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  border: 2px solid red  ;
+}
+
+.cp-btn.selected{
+  background-color: sandybrown;
+}
+
+#btn-frame{
+  height: 100%;
+  display: inline-block;
+}
+
+.cp-btn img{
+  width: 80%;
+  margin: 10%;
+  position: absolute;
+}
+
+.btn{
+  position: relative;
+}
+
+#cw-frame{
+  position:relative;
+}
+
+.cw-cell{
+  text-align: center;
+  vertical-align: middle;
+}
+
+.cw-cell.hilite{
+  background-color: rgba(204, 0, 204, 0.3);
+}
+
+.cw-cell:focus{
+  background-color: rgba(204, 0, 204, 0.5);
+
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="JS/script.js" defer></script>
+</head>
+
+<body>
+  <div class="layer">
+    <img src="graphics/crossword4.png" alt="">
+  </div>
+
+  <div class="layer" id="table-div">
+    <div id="the-grid" class="grid-outer">
+
+      <div id="top-row" class="grid-row">
+        <div id="cw-frame" class="grid-cell">
+          <div id="resize-handle"></div>
+        </div>
+      </div>
+
+      <div id="bottom-row" class="grid-row">
+        <div id="ctrl-panel" class="grid-cell">
+          <div class="centering-div">
+            <form id="btn-frame" name="radioForm">
+
+              <label id="move-btn" class="cp-btn">
+                <input type="radio" name="ctrlPnlBtns" value="move" checked="checked">
+                <div class="centering-div btn">
+                  <img src="graphics/move.png" alt="">
+                </div>
+              </label>
+
+              <label id="cell-resz-btn" class="cp-btn">
+                <input type="radio" name="ctrlPnlBtns" value="cell-resize">
+                <div class="centering-div btn">
+                  <img src="graphics/cell_resize.png" alt="">
+                </div>
+              </label>
+
+              <label id="blacks-btn" class="cp-btn">
+                <input type="radio" name="ctrlPnlBtns" value="black-sqrs">
+                <div class="centering-div btn">
+                  <img src="graphics/black_sqrs.png" alt="">
+                </div>
+              </label>
+
+              <label id="done-btn" class="cp-btn">
+                <input type="radio" name="ctrlPnlBtns" value="solve">
+                <div class="centering-div btn">
+                  <img src="graphics/text-cursor-icon-14.png" alt="">
+                </div>
+              </label>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
