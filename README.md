@@ -11,7 +11,7 @@ At first stage the image of the crossword is hard-coded. Later I intend to enabl
 Next features
 -------------
 
- - Transfer irrelevant functionality from blaking squares function to a more adequate place.
+ - Transfer irrelevant functionality from blacking squares function to a more adequate place.
  - Enable pasting/uploading crossword image.
  - Enable drawing over a third party webpage.
  - Enable deletion
