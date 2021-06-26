@@ -81,6 +81,10 @@ function startSolving() {
       return this.y == 0;
     }
 
+    equals(other) {
+      return this.x == other.x && this.y == other.y;
+    }
+
     /**
      * 
      * @returns 
@@ -105,6 +109,7 @@ function startSolving() {
   var wordCells = [];
   var focusedCell;
 
+  //add event handlers to the cells
   for (let i = 0; i < cwSqares.length; i++) {
     for (let j = 0; j < cwSqares[i].length; j++) {
       var cell = cwSqares[i][j];
@@ -122,33 +127,100 @@ function startSolving() {
 
     //if this cell has already been selected, change typing direction
     if (thisCell == focusedCell) {
-      typeDirection = typeDirection.swich();
+      setTypeDirection(typeDirection.swich());
     } else {
-      focusedCell = thisCell;
-      typeDirection = cDirection.rtl;
+      setFocus(thisCell);
+      setTypeDirection(cDirection.horizontal);
+      hiliteWordCells();
+      if (wordCells.length == 1)
+        setTypeDirection(cDirection.ttb)
+    }
+  }
+
+  function keyTyped(e) {
+    var keyValue = e.key;
+
+    const abc = "אבגדהוזחטיכלמנסעפצקרשת";
+    const suffixes = "ךםןץף";
+    const UP = cDirection.btt;
+    const DOWN = cDirection.ttb;
+    const LEFT = cDirection.rtl;
+    const RIGHT = cDirection.ltr;
+    const HORIZ = cDirection.horizontal;
+
+    const dirMap = {
+      "ArrowUp": { moveDir: UP, typeDir: DOWN },
+      "ArrowDown": { moveDir: DOWN, typeDir: DOWN },
+      "ArrowLeft": { moveDir: LEFT, typeDir: HORIZ },
+      "ArrowRight": { moveDir: RIGHT, typeDir: HORIZ }
     }
 
+    //arrow keys
+    if (dirMap.hasOwnProperty(keyValue)) {
+      if (!typeDirection.equals(dirMap[keyValue].typeDir))
+        setTypeDirection(dirMap[keyValue].typeDir)
+      else
+        moveFocus(dirMap[keyValue].moveDir)
+    }
+
+    //letters
+    else if (abc.indexOf(keyValue) >= 0) {
+      e.target.innerText = e.key;
+      e.target.style.color = "black";
+      var next = getNextCell(e.target, typeDirection);
+      if (next) {
+        setFocus(next);
+      }
+    }
+
+    else if (keyValue == "Delete") {
+      clearCell(focusedCell);
+    }
+
+    else if (keyValue == "Backspace") {
+      if (hasLetter(focusedCell)) {
+        clearCell(focusedCell);
+        moveOneCellBack();
+      } else {
+        moveOneCellBack();
+        clearCell(focusedCell);
+      }
+    }
+  }
+
+  function hasLetter(cell) {
+    return cell.innerText != ".";
+  }
+
+  function clearCell(cell) {
+    cell.innerText = ".";
+    cell.style.color = "rgba(0,0,0,0)"
+  }
+
+  function setTypeDirection(direction) {
     //remove previous hilite if exists
     wordCells.forEach(function (value) {
       value.classList.remove("hilite");
     });
 
+    typeDirection = direction;
+
+    //hilite the current word
     do {
-      //hilite the current word
       wordCells = [];
-      var cellPtr = thisCell;
+      var cellPtr = focusedCell;
       var aCell;
-      wordCells.push(thisCell);
-      thisCell.classList.add("hilite");
+      wordCells.push(focusedCell);
+      focusedCell.classList.add("hilite");
       //go backwards to word's start
-      while (aCell = nextCell(cellPtr, typeDirection.inverted), aCell && !aCell.isBlack) {
+      while (aCell = getNextCell(cellPtr, typeDirection.inverted), aCell && !aCell.isBlack) {
         cellPtr = aCell;
         aCell.classList.add("hilite");
         wordCells.push(aCell);
       }
       //now go forward to end
-      cellPtr = thisCell;
-      while (aCell = nextCell(cellPtr, typeDirection), aCell && !aCell.isBlack) {
+      cellPtr = focusedCell;
+      while (aCell = getNextCell(cellPtr, typeDirection), aCell && !aCell.isBlack) {
         cellPtr = aCell;
         aCell.classList.add("hilite");
         wordCells.push(aCell);
@@ -156,25 +228,33 @@ function startSolving() {
     } while (wordCells.length == 1 && (typeDirection = typeDirection.swich()));
   }
 
-  function keyTyped(e) {
-    var keyValue = e.key;
-    const abc = "אבגדהוזחטיכלמנסעפצקרשת";
-    const suffixes = "ךםןץף";
-
-    if (abc.indexOf(keyValue) >= 0) {
-      //var height = cwGrid.children[e.target.y].style.height;
-      e.target.innerText = e.key;
-      e.target.style.color = "black";
-      var next = nextCell(e.target, typeDirection);
-      if (next) {
-        next.focus();
-
-        //cellClicked(null, next);
-      }
+  function moveFocus(direction) {
+    var next = getNextCell(focusedCell, direction);
+    if (next) {
+      setFocus(next);
     }
   }
 
-  function nextCell(baseCell, direction) {
+
+  function setFocus(cell) {
+    if (cell.isBlack)
+      return;
+    //what if cell is not in the hilited word?
+    focusedCell = cell;
+    cell.focus();
+  }
+
+  function moveOneCellBack() {
+    moveFocus(typeDirection.inverted);
+  }
+
+  /**
+   * Find an adjacent cell
+   * @param {*} baseCell The cell whose neighbour we seek
+   * @param {*} direction The direction we want to go from the base cell
+   * @returns a reference to the adjacent cell or null if it's black or does not exist.
+   */
+  function getNextCell(baseCell, direction) {
     var x = baseCell.x + direction.x;
     var y = baseCell.y + direction.y;
     if (y < 0
@@ -186,12 +266,6 @@ function startSolving() {
     if (nextCell.isBlack)
       return null;
     return nextCell;
-  }
-
-  function cellSelected(thisCell) {
-    //   thisCell.focus();
-    //   alert("i " + thisCell.i + "j " + thisCell.j);
-    //   if (direction == directions.rtl)
   }
 }
 
