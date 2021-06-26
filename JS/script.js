@@ -127,38 +127,14 @@ function startSolving() {
 
     //if this cell has already been selected, change typing direction
     if (thisCell == focusedCell) {
-      typeDirection = typeDirection.swich();
+      setTypeDirection(typeDirection.swich());
     } else {
-      focusedCell = thisCell;
-      typeDirection = cDirection.rtl;
+      setFocus(thisCell);
+      setTypeDirection(cDirection.horizontal);
+      hiliteWordCells();
+      if (wordCells.length == 1)
+        setTypeDirection(cDirection.ttb)
     }
-
-    //remove previous hilite if exists
-    wordCells.forEach(function (value) {
-      value.classList.remove("hilite");
-    });
-
-    do {
-      //hilite the current word
-      wordCells = [];
-      var cellPtr = thisCell;
-      var aCell;
-      wordCells.push(thisCell);
-      thisCell.classList.add("hilite");
-      //go backwards to word's start
-      while (aCell = getNextCell(cellPtr, typeDirection.inverted), aCell && !aCell.isBlack) {
-        cellPtr = aCell;
-        aCell.classList.add("hilite");
-        wordCells.push(aCell);
-      }
-      //now go forward to end
-      cellPtr = thisCell;
-      while (aCell = getNextCell(cellPtr, typeDirection), aCell && !aCell.isBlack) {
-        cellPtr = aCell;
-        aCell.classList.add("hilite");
-        wordCells.push(aCell);
-      }
-    } while (wordCells.length == 1 && (typeDirection = typeDirection.swich()));
   }
 
   function keyTyped(e) {
