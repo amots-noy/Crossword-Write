@@ -11,14 +11,14 @@ At first stage the image of the crossword is hard-coded. Later I intend to enabl
 Next features / fixes
 ---------------------
 
- - Transfer irrelevant functionality from blacking squares function to a more adequate place
  - Enable pasting/uploading crossword image
  - Enable drawing over a third party webpage
+ - Accept Hebrew suffix latters (sofiot)
+ - Accomplish documentation
+ - Center the crossword image
+ - Transfer irrelevant functionality from blacking squares function to a more adequate place
  - Improve arrow keys navigation
  - Enable pale letters when uncertain ('pencil')
- - Accept Hebrew suffix latters (sofiot)
  - Add english, other languages
- - Accomplish documentation
  - Exception handling
- - Center the crossword image
  - Make a class of radio buttons
