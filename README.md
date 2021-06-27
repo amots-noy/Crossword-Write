@@ -8,13 +8,17 @@ The writing should be possible both vertically and horizontally and be limited t
 
 At first stage the image of the crossword is hard-coded. Later I intend to enable pasting of arbitrary image and writing over a third party web page.
 
-Next features
--------------
+Next features / fixes
+---------------------
 
- - Transfer irrelevant functionality from blacking squares function to a more adequate place.
- - Enable pasting/uploading crossword image.
- - Enable drawing over a third party webpage.
- - Enable deletion
- - Arrow keys navigation
- - Enable pale letters when uncertain.
+ - Transfer irrelevant functionality from blacking squares function to a more adequate place
+ - Enable pasting/uploading crossword image
+ - Enable drawing over a third party webpage
+ - Improve arrow keys navigation
+ - Enable pale letters when uncertain ('pencil')
  - Accept Hebrew suffix latters (sofiot)
+ - Add english, other languages
+ - Accomplish documentation
+ - Exception handling
+ - Center the crossword image
+ - Make a class of radio buttons
