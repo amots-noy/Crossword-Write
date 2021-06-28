@@ -235,7 +235,6 @@ function startSolving() {
     }
   }
 
-
   function setFocus(cell) {
     if (cell.isBlack)
       return;
