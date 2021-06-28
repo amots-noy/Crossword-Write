@@ -49,8 +49,6 @@ table, td {
   height: 20px;
 }
 
-
-
 #table-div{
   height: 300px; 
   width: 250px; 
@@ -70,7 +68,6 @@ table, td {
   right: 0px;
   cursor:nwse-resize;
 }
-
 
 div.grid-outer{
   position: absolute;
@@ -145,5 +142,4 @@ div.grid-cell {
 
 .cw-cell:focus{
   background-color: rgba(204, 0, 204, 0.5);
-
 }
