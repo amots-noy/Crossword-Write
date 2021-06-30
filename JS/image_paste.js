@@ -6,7 +6,10 @@ var CLIPBOARD = new CLIPBOARD_CLASS("cw-img-canvas", true);
  * @param {string} canvas_id - canvas id
  * @param {boolean} autoresize - if canvas will be resized
  */
+
+
 function CLIPBOARD_CLASS(canvas_id, autoresize) {
+
   var _self = this;
   var canvas = document.getElementById(canvas_id);
   var ctx = document.getElementById(canvas_id).getContext("2d");
@@ -37,6 +40,7 @@ function CLIPBOARD_CLASS(canvas_id, autoresize) {
       }
     }
   };
+
   //draw pasted image to canvas
   this.paste_createImage = function (source) {
     var pastedImage = new Image();
