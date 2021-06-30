@@ -12,6 +12,7 @@ Next features / fixes
 ---------------------
 
  - Enable pasting/uploading crossword image
+ - Use tab key to move to next word
  - Enable drawing over a third party webpage
  - Accept Hebrew suffix latters (sofiot)
  - Accomplish documentation
