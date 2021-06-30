@@ -14,7 +14,7 @@ Next features / fixes
  - Enable pasting/uploading crossword image
  - Use tab key to move to next word
  - Enable drawing over a third party webpage
- - Accept Hebrew suffix latters (sofiot)
+ - Accept Hebrew suffix latters (sofiyot)
  - Accomplish documentation
  - Center the crossword image
  - Transfer irrelevant functionality from blacking squares function to a more adequate place
