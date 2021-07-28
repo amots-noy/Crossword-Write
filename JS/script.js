@@ -11,6 +11,34 @@ var buttons;
 makeDraggable(tableDiv, cwFrame, true);
 makeResizer(tableDiv, handle, true);
 
+var uploadBtn = document.getElementById("upload-btn");
+uploadBtn.addEventListener("click", function () {
+  var input = document.createElement("input");
+  input.type = "file";
+  input.onchange = e => {
+    var file = e.target.files[0];
+    var reader = new FileReader();
+    reader.onload = createImage;
+    reader.readAsDataURL(file);
+
+    function createImage(e) {
+      var img = new Image();
+      img.onload = imageLoaded;
+      img.src = reader.result;
+
+      function imageLoaded(e) {
+        var canvas = document.getElementById("cw-img-canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+      }
+    }
+  }
+  input.click();
+})
+
+
 //Add listener to ctrl panel buttons
 var prevState = null;
 document.forms.radioForm.addEventListener("change", function (e) {
@@ -299,6 +327,14 @@ function blackingSquares(on) {
   }
 }
 
+/**
+ * Allow the user to drag an element.
+ * 
+ * @param {HTMLElement} dragged The element that will be moved by the dragging action.
+ * @param {HTMLElement} handle The element that the cursor has to be on when dragging. 
+ *                             Can be indentical with @param dragged.
+ * @param {boolean} on True to enable dragging. False to disable.
+ */
 function makeDraggable(dragged, handle, on) {
   var old_X = 0, old_Y = 0, xDiff = 0, yDiff = 0;
   if (on) {
@@ -387,6 +423,7 @@ function drawGrid(e) {
  * 
  * @param {string} resizedId the id of the elemnt be resized
  * @param {string} handleId  the id of the element to be dragged for resizing
+ * @param {boolean} on true to enable resizing, false to disable 
  */
 function makeResizer(mainDiv, handle, on) {
   handle.style.display = "block";
