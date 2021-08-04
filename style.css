@@ -3,12 +3,28 @@ html, body {
   height: 100%;
 }
 
+#bg-frame{
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#cw-img-canvas{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
 table, td {
   border: 1px solid black;
 }
 
 .layer {
   position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 #cw-frame{
@@ -33,8 +49,6 @@ table, td {
   height: 20px;
 }
 
-
-
 #table-div{
   height: 300px; 
   width: 250px; 
@@ -54,7 +68,6 @@ table, td {
   right: 0px;
   cursor:nwse-resize;
 }
-
 
 div.grid-outer{
   position: absolute;
@@ -129,5 +142,4 @@ div.grid-cell {
 
 .cw-cell:focus{
   background-color: rgba(204, 0, 204, 0.5);
-
 }
