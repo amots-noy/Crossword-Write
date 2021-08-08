@@ -38,7 +38,6 @@ uploadBtn.addEventListener("click", function () {
   input.click();
 })
 
-
 //Add listener to ctrl panel buttons
 var prevState = null;
 document.forms.radioForm.addEventListener("change", function (e) {
@@ -85,12 +84,18 @@ document.forms.radioForm.addEventListener("change", function (e) {
   prevState = e.target;
 })
 
+/**
+ * End crossword creation and start writing in it.
+ */
 function startSolving() {
-
   document.getElementById("btn-frame").style.visibility = "hidden";
   cwFrame.style.backgroundColor = "rgba(0,0,0,0)";//}*** replace with class change
   cwFrame.style.cursor = "text";                  //}
 
+  /**
+   * Represents a direction of movement or lookup in the crossword.
+   * Members x and y represent horizontal and vertical components respectively.
+   */
   class cDirection {
     x; y;
 
@@ -103,6 +108,8 @@ function startSolving() {
     static get ltr() { return new cDirection(1, 0); }
     static get ttb() { return new cDirection(0, 1); }
     static get btt() { return new cDirection(0, -1); }
+    //current horizontal writing direction
+    //should be alterred when ltr writing is supported:
     static get horizontal() { return this.rtl; }
 
     get isHorizontal() {
@@ -114,10 +121,10 @@ function startSolving() {
     }
 
     /**
-     * 
-     * @returns 
+     * Switches between writing directions 
+     * @returns a new cDirection object of the other writing than this one.
      */
-    swich() {
+    switched() {
       if (this.isHorizontal)
         return this.constructor.ttb;
       else
@@ -155,7 +162,7 @@ function startSolving() {
 
     //if this cell has already been selected, change typing direction
     if (thisCell == focusedCell) {
-      setTypeDirection(typeDirection.swich());
+      setTypeDirection(typeDirection.switched());
     } else {
       setFocus(thisCell);
       setTypeDirection(cDirection.horizontal);
@@ -253,7 +260,7 @@ function startSolving() {
         aCell.classList.add("hilite");
         wordCells.push(aCell);
       }
-    } while (wordCells.length == 1 && (typeDirection = typeDirection.swich()));
+    } while (wordCells.length == 1 && (typeDirection = typeDirection.switched()));
   }
 
   function moveFocus(direction) {
@@ -296,6 +303,13 @@ function startSolving() {
   }
 }
 
+/**
+ * Starts or stops manual black sqare toggling mode.
+ * When on, the user is allowed to mark the black squares of the crossword manually.
+ * i.e crossword squares respond to clicks in by toggling their isBlack property.
+ * 
+ * @param {boolean} on determines whether to start or stop the mode.
+ */
 function blackingSquares(on) {
   cwFrame.style.cursor = "pointer";
   var rows = cwGrid.children;
@@ -374,16 +388,25 @@ function makeDraggable(dragged, handle, on) {
   }
 }
 
-function startCellSizing(e) {
+/**
+ * Starts cell sizing mode in which every click on the crossword area 
+ * results in setting the dimentions of the cells and thus the cell count
+ * horizontally and vertically. 
+ */
+function startCellSizing() {
   handle.style.display = "none";
   cwFrame.style.cursor = "crosshair";
-  cwFrame.onclick = drawGrid; //preDrawGrid;
-}
-
-function preDrawGrid(e) {
   cwFrame.onclick = drawGrid;
 }
 
+/**
+ * Creates and displays the cell grid of the crossword.
+ * Called upon a mouse click in the crossword area.
+ * a cell's size is calculated according to the horizontal and vertical distancces
+ * between the area's top left corner and the click location.
+ * 
+ * @param {MouseEvent} e the mouse event that triggered the invoking of this function.
+ */
 function drawGrid(e) {
   let clickPos_x = e.clientX - cwFrame.getBoundingClientRect().left;
   let clickPos_y = e.clientY - cwFrame.getBoundingClientRect().top;
