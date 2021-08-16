@@ -1,4 +1,4 @@
-
+alert("YABADABADOO!");
 var tableDiv = document.getElementById("table-div");
 var handle = document.getElementById("resize-handle");
 var cwFrame = document.getElementById("cw-frame");
